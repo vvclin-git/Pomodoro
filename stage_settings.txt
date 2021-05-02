@@ -1,0 +1,4 @@
+Pomodoro,Short Break,Pomodoro,Short Break,Pomodoro,Long Break
+Pomodoro,00:30 
+Short Break,00:03
+Long Break,00:04

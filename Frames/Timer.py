@@ -1,41 +1,49 @@
 import tkinter as tk
 from tkinter.ttk import *
 
-class Main_Frame(Frame):
-    def __init__(self, window):
-        super().__init__(window, padding=(10, 10))
+class Timer(Frame):
+    def __init__(self, window, controller, show_settings):
+        super().__init__(window)
         self.time_str = tk.StringVar()
         self.running = False           
+        
         self.columnconfigure(0, weight=1)
-        self.columnconfigure(1, weight=1)
-        self.columnconfigure(2, weight=1)
         self.rowconfigure(0, weight=1)
-        self.rowconfigure(1, weight=3)
-        self.rowconfigure(2, weight=1)
+        
+        timer_container = Frame(self, padding='30 15 30 15', style='debug.TFrame')
+        timer_container.grid(row=0, column=0, sticky="NSEW")
+
+
+        timer_container.columnconfigure(0, weight=1)
+        timer_container.columnconfigure(1, weight=1)
+        timer_container.columnconfigure(2, weight=1)
+        timer_container.rowconfigure(0, weight=1)
+        timer_container.rowconfigure(1, weight=3)
+        timer_container.rowconfigure(2, weight=1)
         # self.stage_list = {'Pomodoro':'25:00', 'Short Break':'05:00', 'Long Break':'10:00'}
-        self.stage_list = {'Pomodoro':'00:30', 'Short Break':'00:03', 'Long Break':'00:04'}
-        self.stage_order = ['Pomodoro', 'Short Break', 'Pomodoro', 'Short Break', 'Pomodoro', 'Long Break']        
+        self.stage_list = controller.stage_list
+        self.stage_order = controller.stage_order
         self.current_order = 0
         self.current_stage = tk.StringVar()
         self.current_stage.set(self.stage_order[self.current_order])
         self.time_str.set(self.stage_list[self.stage_order[self.current_order]])
         self._tick_job = None
-        top_label = Label(self, textvariable=self.current_stage)
+        top_label = Label(timer_container, textvariable=self.current_stage)
         top_label.grid(row=0, column=0, columnspan=2, sticky='W')
 
-        setting_button = Button(self, text='Settings')
+        setting_button = Button(timer_container, text='Settings', command=show_settings)
         setting_button.grid(row=0, column=2, sticky='E')
 
-        time_label = Label(self, textvariable=self.time_str)
+        time_label = Label(timer_container, textvariable=self.time_str)
         time_label.grid(row=1, column=0, columnspan=3, sticky='NS')
         
-        start_button = Button(self, text='Start', command=self.start_timer)
+        start_button = Button(timer_container, text='Start', command=self.start_timer)
         start_button.grid(row=2, column=0, sticky='EW')
 
-        stop_button = Button(self, text='Stop', command=self.stop_timer)
+        stop_button = Button(timer_container, text='Stop', command=self.stop_timer)
         stop_button.grid(row=2, column=1, sticky='EW')
 
-        reset_button = Button(self, text='Reset', command=lambda: self.reset_timer(0))
+        reset_button = Button(timer_container, text='Reset', command=lambda: self.reset_timer(0))
         reset_button.grid(row=2, column=2, sticky='EW')
     
     def reset_timer(self, stage_order):
