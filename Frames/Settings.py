@@ -6,9 +6,12 @@ class Settings(Frame):
         super().__init__(parent)
         self.stage_order = controller.stage_order
         self.stage_list = controller.stage_list
-        self.controller = controller
-        s = Style()
-        s.configure('debug.TFrame', background='green')
+        self.controller = controller        
+        self.stage_order_str = tk.StringVar()
+        self.stage_order_str.set(str(self.stage_order))
+        
+        # s = Style()
+        # s.configure('debug.TFrame', background='green')
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
         
@@ -70,6 +73,8 @@ class Settings(Frame):
 
         timer_button = Button(setting_container, text='Back to Timer', command=show_timer)
         timer_button.grid(row=3, column=1, sticky='E')
+
+        stage_order_entry = Entry(setting_container, textvariable=self.stage_order_str)
     
     def save_settings(self):
         self.controller.stage_list[list(self.stage_list.keys())[0]] = f'{self.stage_1_min.get()}:{self.stage_1_sec.get()}'
