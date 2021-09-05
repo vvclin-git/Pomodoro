@@ -10,17 +10,21 @@ class Settings(Frame):
         self.stage_order_str = tk.StringVar()
         self.stage_order_str.set(str(self.stage_order))
         
-        # s = Style()
-        # s.configure('debug.TFrame', background='green')
+        self["style"] = "Background.TFrame"
+        
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
         
-        setting_container = Frame(self, padding='30 15 30 15', style='debug.TFrame')
+        setting_container = Frame(self, padding='20 10 20 10', style="Timer.TFrame")
         setting_container.grid(row=0, column=0, sticky="NSEW")
         setting_container.columnconfigure(0, weight=1)
         setting_container.columnconfigure(1, weight=1)     
-        # setting_container.rowconfigure(0, weight=3)
+        
+        setting_container.rowconfigure(0, weight=1)
+        setting_container.rowconfigure(1, weight=1)
+        setting_container.rowconfigure(2, weight=1)
         setting_container.rowconfigure(3, weight=1)
+        
         
         
         stage_1_time = self.stage_list[list(self.stage_list.keys())[0]]
@@ -41,7 +45,7 @@ class Settings(Frame):
         self.stage_3_sec = tk.StringVar()
         self.stage_3_sec.set(int(stage_3_time.split(':')[1]))      
         
-        stage_1_label = Label(setting_container, text=list(self.stage_list.keys())[0])
+        stage_1_label = Label(setting_container, text=list(self.stage_list.keys())[0], style="SettingsLightText.TLabel")
         stage_1_label.grid(row=0, column=0, sticky='W')
         stage_1_adj_frame = Frame(setting_container)
         stage_1_adj_frame.grid(row=0, column=1, sticky='E')        
@@ -50,7 +54,7 @@ class Settings(Frame):
         stage_1_sec_spin = tk.Spinbox(stage_1_adj_frame, from_=00, to=59, increment=1, textvariable=self.stage_1_sec, format='%02.0f', width=2)
         stage_1_sec_spin.pack(side='left')
 
-        stage_2_label = Label(setting_container, text=list(self.stage_list.keys())[1])
+        stage_2_label = Label(setting_container, text=list(self.stage_list.keys())[1], style="SettingsLightText.TLabel")
         stage_2_label.grid(row=1, column=0, sticky='W')
         stage_2_adj_frame = Frame(setting_container)
         stage_2_adj_frame.grid(row=1, column=1, sticky='E')        
@@ -59,7 +63,7 @@ class Settings(Frame):
         stage_2_sec_spin = tk.Spinbox(stage_2_adj_frame, from_=00, to=59, increment=1, textvariable=self.stage_2_sec, format='%02.0f', width=2)
         stage_2_sec_spin.pack(side='left')
 
-        stage_3_label = Label(setting_container, text=list(self.stage_list.keys())[2])
+        stage_3_label = Label(setting_container, text=list(self.stage_list.keys())[2], style="SettingsLightText.TLabel")
         stage_3_label.grid(row=2, column=0, sticky='W')
         stage_3_adj_frame = Frame(setting_container)
         stage_3_adj_frame.grid(row=2, column=1, sticky='E')        
@@ -68,11 +72,11 @@ class Settings(Frame):
         stage_3_sec_spin = tk.Spinbox(stage_3_adj_frame, from_=00, to=59, increment=1, textvariable=self.stage_3_sec, format='%02.0f', width=2)
         stage_3_sec_spin.pack(side='left')
 
-        save_button = Button(setting_container, text='Save Settinigs', command=self.save_settings)
-        save_button.grid(row=3, column=0, sticky='W')
+        save_button = Button(setting_container, text='Save Settinigs', command=self.save_settings, style="PomodoroButton.TButton", cursor='hand2')
+        save_button.grid(row=3, column=0, sticky='W', pady=(15, 0))
 
-        timer_button = Button(setting_container, text='Back to Timer', command=show_timer)
-        timer_button.grid(row=3, column=1, sticky='E')
+        timer_button = Button(setting_container, text='Back to Timer', command=show_timer, style="PomodoroButton.TButton", cursor='hand2')
+        timer_button.grid(row=3, column=1, sticky='E', pady=(15, 0))
 
         stage_order_entry = Entry(setting_container, textvariable=self.stage_order_str)
     

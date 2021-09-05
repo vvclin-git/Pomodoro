@@ -9,11 +9,12 @@ class Timer(Frame):
         
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
+        # Styling
+        self["style"] = "Background.TFrame"
         
-        timer_container = Frame(self, padding='30 15 30 15', style='debug.TFrame')
+
+        timer_container = Frame(self, padding='20 10 20 10', style="Timer.TFrame")
         timer_container.grid(row=0, column=0, sticky="NSEW")
-
-
         timer_container.columnconfigure(0, weight=1)
         timer_container.columnconfigure(1, weight=1)
         timer_container.columnconfigure(2, weight=1)
@@ -28,22 +29,23 @@ class Timer(Frame):
         self.current_stage.set(self.stage_order[self.current_order])
         self.time_str.set(self.stage_list[self.stage_order[self.current_order]])
         self._tick_job = None
-        top_label = Label(timer_container, textvariable=self.current_stage)
+        
+        top_label = Label(timer_container, textvariable=self.current_stage, style="LightText.TLabel")
         top_label.grid(row=0, column=0, columnspan=2, sticky='W')
 
-        setting_button = Button(timer_container, text='Settings', command=show_settings)
+        setting_button = Button(timer_container, text='Settings', command=show_settings, style="PomodoroButton.TButton", cursor='hand2')
         setting_button.grid(row=0, column=2, sticky='E')
 
-        time_label = Label(timer_container, textvariable=self.time_str)
-        time_label.grid(row=1, column=0, columnspan=3, sticky='NS')
+        time_label = Label(timer_container, textvariable=self.time_str, style="TimerText.TLabel")
+        time_label.grid(row=1, column=0, columnspan=3, sticky='NSEW')
         
-        start_button = Button(timer_container, text='Start', command=self.start_timer)
+        start_button = Button(timer_container, text='Start', command=self.start_timer, style="PomodoroButton.TButton", cursor='hand2')
         start_button.grid(row=2, column=0, sticky='EW')
 
-        stop_button = Button(timer_container, text='Stop', command=self.stop_timer)
+        stop_button = Button(timer_container, text='Stop', command=self.stop_timer, style="PomodoroButton.TButton", cursor='hand2')
         stop_button.grid(row=2, column=1, sticky='EW')
 
-        reset_button = Button(timer_container, text='Reset', command=lambda: self.reset_timer(0))
+        reset_button = Button(timer_container, text='Reset', command=lambda: self.reset_timer(0), style="PomodoroButton.TButton", cursor='hand2')
         reset_button.grid(row=2, column=2, sticky='EW')
     
     def reset_timer(self, stage_order):
